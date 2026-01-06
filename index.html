@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o meu amor</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link
+        
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat:wght@300;400&display=swap"
+        rel="stylesheet">
+        
+    <style>
+        :root {
+            --primary-color: #d83e3e;
+            --bg-color: #f6caca;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            color: #333;
+        }
+
+        /* Modal de Senha */
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 240, 243, 0.8) !important;
+            /* O 0.8 é a transparência */
+            z-index: 100;
+            /* Garante que o modal fique na frente das fotos */
+            transition: opacity 0.8s ease;
+        }
+
+        .modal-content {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            padding: 12px;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            outline: none;
+            margin-bottom: 15px;
+            width: 200px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 25px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff758f;
+        }
+
+        /* Conteúdo Principal (Escondido) */
+        #main-content {
+            display: none;
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--primary-color);
+        }
+
+        .counter-container {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timer-unit {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .love-text {
+            line-height: 1.6;
+            font-style: italic;
+            margin: 30px 0;
+        }
+
+        /* Spotify */
+        .spotify-embed {
+            margin-top: 20px;
+            border-radius: 12px;
+        }
+
+        /* Efeito de Corações */
+        .heart {
+            position: fixed;
+            font-size: 20px;
+            color: var(--primary-color);
+            user-select: none;
+            pointer-events: none;
+            z-index: 999;
+            animation: moveHearts 4s linear forwards;
+        }
+
+        @keyframes moveHearts {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Estilo das imagens flutuantes */
+        .floating-img {
+            position: fixed;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            /* AJUSTE AQUI: */
+            z-index: 5;
+            display: block;
+            /* Garante que não está escondida */
+            /* ------------ */
+            transition: opacity 1s ease;
+            animation: floatAnim 5s ease-in-out infinite;
+        }
+
+        /* AJUSTE NO MODAL: O fundo precisa ser semi-transparente para ver as fotos atrás */
+
+        @keyframes floatAnim {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-25px) rotate(5deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- IMAGENS ANTES DA SENHA (ex: ícones, corações ou fotos misteriosas) -->
+<div id="fotos-antes">
+    <img src="straw.png" class="floating-img" style="top: 10%; left: 5%;">
+    <img src="straw.png" class="floating-img" style="top: 20%; right: 8%;">
+    <img src="straw.png" class="floating-img" style="bottom: 15%; left: 10%;">
+</div>
+
+    <!-- IMAGENS DEPOIS DA SENHA (fotos de vocês) -->
+    <div id="fotos-depois" style="display: none; opacity: 0;">
+        <img src="1.png" class="floating-img" style="top: 5%; left: 15%; animation-delay: 0.5s;">
+        <img src="2.png" class="floating-img" style="top: 50%; right: 5%; animation-delay: 1.5s;">
+        <img src="3.png" class="floating-img" style="bottom: 10%; left: 5%; animation-delay: 0s;">
+        <img src="4.png" class="floating-img" style="bottom: 5%; right: 10%; animation-delay: 2.5s;">
+    </div>
+
+    <!-- Modal de Senha -->
+    <div id="modal">
+        <div class="modal-content">
+            <h2>Oi Nicoli amoreco! ❤️</h2>
+            <p>Digite nosso dia especial para entrar:</p>
+            <p><small>(Dica: DDMMAAAA)</small></p>
+            <input type="password" id="passwordInput" placeholder="Senha...">
+            <br>
+            <button onclick="checkPassword()">Acessar Presentinho</button>
+            <p id="error-msg" style="color: red; display: none; margin-top: 10px;">MOR! não erra a senha 😔</p>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div id="main-content">
+        <h1>Sempre foi você...</h1>
+
+        <div class="counter-container">
+            <p>Estamos juntos há:</p>
+            <div id="timer">Carregando tempo...</div>
+        </div>
+
+        <div class="love-text">
+            <p>
+                "Nicoli, criei este site para te mostrar o quanto cada segundo ao seu lado é valioso.
+                Tem sido muito bom viver todo esse tempo com você.
+                Espero que esse contador nunca pare de subir, assim como o meu amor por você S2.
+                Shimuneno, meu pézinho de jacarandá"
+            </p>
+        </div>
+
+        <!-- Troque o LINK abaixo pelo link de compartilhamento do Spotify -->
+        <div class="spotify-embed">
+            <iframe style="border-radius:12px"
+                src="https://open.spotify.com/embed/track/17CPezzLWzvGfpZW6X8XT0?utm_source=generator" width="100%"
+                height="152" frameBorder="0" allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURAÇÕES ---
+        const SENHA_CORRETA = "28122023"; // Mude para sua data ou senha
+        const DATA_INICIO = new Date("2023-12-28T00:00:00"); // Ano-Mês-DiaT00:00:00
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            if (input === SENHA_CORRETA) {
+                // Esconde as imagens antigas
+                const antes = document.getElementById('fotos-antes');
+                antes.style.opacity = '0';
+
+                setTimeout(() => {
+                    antes.style.display = 'none';
+
+                    // Mostra as fotos novas com transição
+                    const depois = document.getElementById('fotos-depois');
+                    depois.style.display = 'block';
+                    setTimeout(() => { depois.style.opacity = '1'; }, 50);
+
+                }, 1000); // Espera 1 segundo para a transição suave
+
+                // Efeito de transição
+                document.getElementById('modal').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('modal').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    startTimer();
+                    createHearts();
+                }, 800);
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+
+        function startTimer() {
+            setInterval(() => {
+                const now = new Date();
+                const diff = now - DATA_INICIO;
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('timer').innerHTML = `
+                    <span class="timer-unit">${days}</span> dias, 
+                    <span class="timer-unit">${hours}</span> horas, 
+                    <span class="timer-unit">${minutes}</span> minutos e 
+                    <span class="timer-unit">${seconds}</span> segundos
+                `;
+            }, 1000);
+        }
+
+        function createHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 5000);
+            }, 300);
+        }
+    </script>
+</body>
+
+</html>
